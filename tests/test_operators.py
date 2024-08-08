@@ -193,8 +193,15 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError("Need to implement for Task 0.3")
+
+    def manual_sum(lst: List[float]) -> float:
+        total = 0.0
+        for number in lst:
+            total += number
+        return total
+
+    # 验证两个总和是否相等
+    assert manual_sum(ls1) == sum(ls1) and sum(ls2) == manual_sum(ls2)
 
 
 @pytest.mark.task0_3
