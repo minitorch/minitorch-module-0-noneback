@@ -35,7 +35,7 @@ def max(x: float, y: float) -> float:
 
 
 def is_close(x: float, y: float) -> float:
-    return abs(x - y) < (math.e - 2)
+    return abs(x - y) < (exp(1) - 2)
 
 
 def sigmoid(x: float) -> float:
