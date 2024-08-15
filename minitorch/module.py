@@ -31,29 +31,41 @@ class Module:
 
     def train(self) -> None:
         "Set the mode of this module and all descendent modules to `train`."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        self.training = True
+
+        for subm in self.modules():
+            subm.train()
 
     def eval(self) -> None:
-        "Set the mode of this module and all descendent modules to `eval`."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        self.training = False
+
+        for subm in self.modules():
+            subm.eval()
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """
         Collect all the parameters of this module and its descendents.
 
-
         Returns:
             The name and `Parameter` of each ancestor parameter.
         """
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        result = list(tuple(self._parameters.items()))
+        for mname, subm in self._modules.items():
+            result.extend(
+                [
+                    (mname + "." + named[0], named[1])
+                    for named in subm.named_parameters()
+                ]
+            )
+        print("named", result)
+        return result
 
     def parameters(self) -> Sequence[Parameter]:
         "Enumerate over all the parameters of this module and its descendents."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        result = list(self._parameters.values())
+        for subm in self.modules():
+            result.extend(list(subm.parameters()))
+        return result
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """
